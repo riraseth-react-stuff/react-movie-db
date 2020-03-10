@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import {
-  API_URL,
-  API_KEY,
-  IMAGE_BASE_URL,
-  BACKDROP_SIZE,
-  POSTER_SIZE
-} from '../config';
+import { IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from '../config';
 import Grid from './elements/Grid';
 import HeroImage from './elements/HeroImage';
 import LoadMoreBtn from './elements/LoadMoreBtn';
@@ -19,7 +12,6 @@ import { useHomeFetch } from './hooks/useHomeFetch';
 
 const Home = () => {
   const [{ state, loading, error }, fetchMovies] = useHomeFetch();
-  console.log(state);
   return (
     <React.Fragment>
       <HeroImage></HeroImage>
