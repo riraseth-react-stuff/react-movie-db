@@ -13,7 +13,7 @@ export const useHomeFetch = () => {
     const data = response.data;
     setState(prev => ({
       ...prev,
-      movies: [data.results],
+      movies: data.results,
       heroImage: prev.heroImage || data.results[0],
       currentPage: data.page,
       totalPages: data.total_pages
