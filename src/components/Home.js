@@ -14,30 +14,12 @@ import MovieThumb from './elements/MovieThumb';
 import SearchBar from './elements/SearchBar';
 import Spinner from './elements/Spinner';
 
+// custom hook
+import { useHomeFetch } from './hooks/useHomeFetch';
+
 const Home = () => {
-  const [state, setState] = useState({ movies: [] });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const fetchMovies = async endpoint => {
-    setError(false);
-    setLoading(true);
-    const response = await axios.get(endpoint).catch(() => setError(true));
-    const data = response.data;
-    setState(prev => ({
-      ...prev,
-      movies: [data.results],
-      heroImage: prev.heroImage || data.results[0],
-      currentPage: data.page,
-      totalPages: data.total_pages
-    }));
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchMovies(`${API_URL}movie/popular?api_key=${API_KEY}`);
-  }, []);
-
+  const [{ state, loading, error }, fetchMovies] = useHomeFetch();
+  console.log(state);
   return (
     <React.Fragment>
       <HeroImage></HeroImage>
