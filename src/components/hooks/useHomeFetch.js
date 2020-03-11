@@ -9,11 +9,15 @@ export const useHomeFetch = () => {
   const fetchMovies = async endpoint => {
     setError(false);
     setLoading(true);
+
+    const isLoadMore = endpoint.search('page');
+
     const response = await axios.get(endpoint).catch(() => setError(true));
     const data = response.data;
     setState(prev => ({
       ...prev,
-      movies: data.results,
+      movies:
+        isLoadMore !== -1 ? [...prev.movies, ...data.results] : data.results,
       heroImage: prev.heroImage || data.results[0],
       currentPage: data.page,
       totalPages: data.total_pages
