@@ -23,9 +23,11 @@ const Movie = ({ movieId }) => {
     <React.Fragment>
       <Navigation movie={movie.original_title}></Navigation>
       <MovieInfo movie={movie}></MovieInfo>
-      <MovieInfoBar></MovieInfoBar>
-      <Grid>
-        <Actor></Actor>
+      <MovieInfoBar {...movie}></MovieInfoBar>
+      <Grid header="Actors">
+        {movie.actors.map(actor => (
+          <Actor key={actor.credit_id} actor={actor}></Actor>
+        ))}
       </Grid>
     </React.Fragment>
   );
