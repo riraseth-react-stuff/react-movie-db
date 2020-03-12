@@ -10,17 +10,23 @@ import Spinner from './elements/Spinner';
 import { useMovieFetch } from './hooks/useMovieFetch';
 
 const Movie = ({ movieId }) => {
-  const [movie, loading, error] = useMovieFetch(movieId);
-  console.log(movie);
+  const { state: movie, loading } = useMovieFetch(movieId);
+
+  if (!movie) {
+    return <div>something went wrong</div>;
+  }
+
+  if (loading) {
+    return <Spinner></Spinner>;
+  }
   return (
     <React.Fragment>
-      <Navigation></Navigation>
-      <MovieInfo></MovieInfo>
+      <Navigation movie={movie.original_title}></Navigation>
+      <MovieInfo movie={movie}></MovieInfo>
       <MovieInfoBar></MovieInfoBar>
       <Grid>
         <Actor></Actor>
       </Grid>
-      <Spinner></Spinner>
     </React.Fragment>
   );
 };
